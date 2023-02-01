@@ -1,0 +1,31 @@
+#header {
+  display: flex;
+  justify-content: center;
+}
+
+#footer {
+  display: flex;
+  justify-content: center;
+}
+
+#sortHat {
+  display: flex;
+  justify-content: center;
+  
+  
+}
+
+.hat {
+ border-radius: 4px;
+ width: 250px;
+}
+
+#students {
+  display: inline-block;
+  
+}
+
+#form {
+  margin-left: 50px;
+  
+}
