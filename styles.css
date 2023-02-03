@@ -1,5 +1,6 @@
 body {
-  background-color: silver;
+  /* background-image: url('https://wallpapercave.com/wp/wp2182824.jpg'); */
+  
 }
 
 #header {
@@ -36,9 +37,12 @@ body {
 
 #form {
   margin-left: 50px;
-  
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-family: 'Harry Potter', sans-serif;
 }
+  
 
 
 #header {
@@ -49,9 +53,27 @@ body {
 }
 
 
-#footer {
+#subheader {
   font-family: 'Agrish', sans-serif;
   display: flex;
   justify-content: center; 
   align-items: center;                                         
+}
+
+#sort {
+  font-family: 'Harry Potter', sans-serif;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  width: 300px;
+  background: transparent;
+  border-radius: 750px;
+}
+
+
+#sortbtns {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 100px;
 }
