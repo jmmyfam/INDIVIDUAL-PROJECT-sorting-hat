@@ -1,5 +1,5 @@
 body {
-  /* background-image: url('https://wallpapercave.com/wp/wp2182824.jpg'); */
+  background-color: rgba(250, 235, 215, 0.39);
   
 }
 
@@ -35,6 +35,14 @@ body {
   
 }
 
+#expelled {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 #form {
   margin-left: 50px;
   display: flex;
@@ -67,6 +75,7 @@ body {
   width: 300px;
   background: transparent;
   border-radius: 750px;
+  box-shadow: 5px 5px 8px #888;
 }
 
 
@@ -76,4 +85,50 @@ body {
   margin-left: 100px;
   margin-right: 100px;
   margin-bottom: 100px;
+  font-family: 'Harry Potter', sans-serif;
+}
+
+
+.filter {
+  padding-top: 5px;
+  border-radius: 10px;
+  background: transparent;
+}
+
+
+#viewGryff {
+  color: rgb(167, 30, 30);
+  border-color:  rgb(167, 30, 30);
+  
+}
+
+#viewHuff {
+  color: rgb(155, 133, 9);
+  border-color: rgb(155, 133, 9);
+}
+
+#viewRave {
+  color: rgb(76, 76, 201);
+  border-color: rgb(76, 76, 201);
+}
+
+#viewSlyth {
+  color: rgb(48, 110, 48);
+  border-color: rgb(48, 110, 48);
+}
+
+
+#assignedHouse {
+  display: flex;
+  justify-content: center;
+  font-family: 'Harry Potter', sans-serif;
+  margin-bottom: 30px;
+}
+
+
+.btn-danger {
+  padding-top: 10px;
+  margin-top: 5px;
+  background-color:rgba(248, 58, 11, 0.103);
+  color: black;
 }

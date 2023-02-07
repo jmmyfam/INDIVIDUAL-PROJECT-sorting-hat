@@ -1,4 +1,4 @@
-const students = [
+let students = [
   {
     name: 'Harry Potter',
     id: 1,
@@ -145,109 +145,214 @@ const students = [
     house: 'Slytherin',
     image: './images/slytherin.png'
   }
-
-
-
-  
 ];
 
 
+const eStudents = [];
 
-
-const renderToDom = (divId, htmlToRender) => {
-  const selectedDiv = document.querySelector(divId);
-  selectedDiv.innerHTML = htmlToRender
+// hide/show form toggle function
+let toggle = button => {
+  let element = document.getElementById("form");
+  let hidden = element.getAttribute("hidden");
+  
+  if (hidden) {
+    element.removeAttribute("hidden");
+    
+  } else {
+    element.setAttribute("hidden", "hidden");
+    
+  }
 };
 
+
+// utility function 
+const renderToDom = (divId, htmlToRender) => {
+  const selectedDiv = document.querySelector(divId);
+  selectedDiv.innerHTML = htmlToRender;
+};
+
+// students cards on DOM function
 const cardsOnDom = (array) => {
   let html = '';
   for (const stu of array) {
     html += `<div class="card mb-3" style="max-width: 300px;">
     <div class="row g-0">
-      <div class="col-md-4">
-        <img src="${stu.image}" class="img-fluid rounded-start"  alt="..." style="background: transparent;" >
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title" style="font-family: 'Harry Potter', sans-serif;">${stu.name}</h5>
-          <p class="card-text">${stu.house}</p>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-4">
+    <img src="${stu.image}" class="img-fluid rounded-start"  alt="..." style="background: transparent;" >
+    </div>
+    <div class="col-md-8">
+    <div class="card-body">
+    <h5 class="card-title" style="font-family: 'Harry Potter', sans-serif;">${stu.name}</h5>
+    <p class="card-text">${stu.house}</p>
+    </div>
+    </div>
+    </div>
+    <button id="expelButton--${stu.id}" class="btn btn-danger" style="font-family: 'Harry Potter', sans serif">Expelliarmus</button>
     </div>`;
-
     
-    }
-
-    renderToDom('#students', html);
-
-  };
-
-  // cardsOnDom(students);
-
-
-// const sort = document.querySelector('#sort');
-// const form = document.querySelector('form');
-
-// sort.addEventListener('click', () => {
-//   if (form.style.display === 'none') {
-//     form.style.display = 'block';
-//   } else {form.style.display = 'none'};
-
-// })
-
-
-let toggle = button => {
-  let element = document.getElementById("form");
-  let hidden = element.getAttribute("hidden");
-
-  if (hidden) {
-     element.removeAttribute("hidden");
-     
-  } else {
-     element.setAttribute("hidden", "hidden");
-     
+    
   }
+  
+  renderToDom('#students', html);
+  
+  document.querySelector('#students').addEventListener('click', expelStudent);
+  
 };
+
+const expelCardsOnDom = (array) => {
+  let html = "";
+  for (const ex of array) {
+    html += `<div class="card mb-3" style="max-width: 300px;">
+    <div class="row g-0">
+    <div class="col-md-4">
+    <img src="./images/death.png" class="img-fluid rounded-start"  alt="..." style="background: transparent;" >
+    </div>
+    <div class="col-md-8">
+    <div class="card-body">
+    <h5 class="card-title" style="font-family: 'Harry Potter', sans-serif;">${ex.name}</h5>
+    <p class="card-text">Formally ${ex.house}</p>
+    </div>
+    </div>
+    </div>
+    </div>`;
+  }
+  
+  
+  renderToDom("#expelled", html);
+};
+
+
+const expelStudent = (e) => {
+  
+  if (e.target.id.includes("expelButton")) {
+    const [, studentId] = e.target.id.split('--');
+
+    const studentIndex = students.findIndex(
+      (stu) => Number(studentId) === stu.id 
+      );
+      
+        const expelledStudent = students.splice(studentIndex, 1);
+        
+        eStudents.push(expelledStudent[0]);
+
+
+        expelCardsOnDom(eStudents);
+        cardsOnDom(students);
+      }
+    };
+
+
+
+
+//function to filter students by house
 
 const filter = (array, byHouse) => {
   const stuArray = [];
-
+  
   for (const stu of array) {
     if (stu.house === byHouse) {
       stuArray.push(stu);
     }
   }
-  return stuArray;
-};
+    return stuArray;
+  };
+  
+  const showAll = document.querySelector('#viewAll');
+  const showGryff = document.querySelector('#viewGryff');
+  const showHuff = document.querySelector('#viewHuff');
+  const showRave = document.querySelector('#viewRave');
+  const showSlyth = document.querySelector('#viewSlyth');
+  
+  showAll.addEventListener('click', () => {
+    cardsOnDom(students);
+    
+  });
+  
+  showGryff.addEventListener('click', () => {
+    const gryffs = filter(students, 'Gryffindor');
+    cardsOnDom(gryffs);
+  });
+  
+  showHuff.addEventListener('click', () => {
+    const huffs = filter(students, 'Hufflepuff');
+    cardsOnDom(huffs);
+  });
+  
+  showRave.addEventListener('click', () => {
+    const raves = filter(students, 'Ravenclaw');
+    cardsOnDom(raves);
+  });
+  
+  showSlyth.addEventListener('click', () => {
+    const slyths = filter(students, 'Slytherin');
+    cardsOnDom(slyths);
+  });          
+  
+  
+  
+  const assignHouse = () => {
+    const studentName = document.getElementById('studentName').value;
+    
+    const randomIndex = Math.floor(Math.random() * students.length);
+    
+    const assignedHouse = students[randomIndex].house;
+    
+    document.getElementById('assignedHouse').innerHTML = `${studentName} has been assigned to ${assignedHouse}!`;
+    
+    
+    const createCard = (e) => {
+      e.preventDefault();
 
-const showAll = document.querySelector('#viewAll');
-const showGryff = document.querySelector('#viewGryff');
-const showHuff = document.querySelector('#viewHuff');
-const showRave = document.querySelector('#viewRave');
-const showSlyth = document.querySelector('#viewSlyth');
 
-showAll.addEventListener('click', () => {
-  cardsOnDom(students);
-});
+      
+      
+    }
+    
+    
+    
+    document.querySelector("form").reset();
+    
+    
+    
+  };
+  
+  document.getElementById('submit').addEventListener('click', assignHouse);
+  
+  
+  
+  
+  
+  
+  
+  // expelled student on DOM
 
-showGryff.addEventListener('click', () => {
-  const gryffs = filter(students, 'Gryffindor');
-  cardsOnDom(gryffs);
-});
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-showHuff.addEventListener('click', () => {
-  const huffs = filter(students, 'Hufflepuff');
-  cardsOnDom(huffs);
-});
 
-showRave.addEventListener('click', () => {
-  const raves = filter(students, 'Ravenclaw');
-  cardsOnDom(raves);
-});
 
-showSlyth.addEventListener('click', () => {
-  const slyths = filter(students, 'Slytherin');
-  cardsOnDom(slyths);
-});          
-          
+
+
+
+
+
+
+
+
+
+
+// const startApp = () => {
+//   cardsOnDom(students);
+// };
+
+// startApp();
